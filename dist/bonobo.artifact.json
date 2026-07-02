@@ -3,7 +3,7 @@
 	"plugin": {
 		"name": "pdf",
 		"displayName": "PDF",
-		"version": "0.1.1"
+		"version": "0.1.2"
 	},
 	"compatibility": {
 		"bonoboPluginRuntime": "1"
@@ -22,6 +22,7 @@
 	],
 	"pages": [],
 	"capabilities": ["uploads.source.read", "files.source.temporaryUrl", "files.markdown.write", "plugin.secrets.read", "outbound.fetch"],
+	"outboundOrigins": ["https://ray-thurne-void--bonobo-senate-press-file-converter-asgi.modal.run"],
 	"files": [
 		{
 			"path": "dist/backend/worker.js",
