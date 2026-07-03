@@ -74,6 +74,8 @@ export default {
 
 		const [sourceUrl, modalToken] = await Promise.all([
 			sourceTemporaryUrl(env),
+			// Publisher secret MODAL_TOKEN is configured with MODAL_FILE_CONVERTER_URL
+			// as its only allowed origin in the host secret policy.
 			requireSecret(env, "MODAL_TOKEN"),
 		]);
 		// Security review: MODAL_TOKEN is sent only to the fixed, declared
