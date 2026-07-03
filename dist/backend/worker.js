@@ -1,7 +1,6 @@
 const TEMPORARY_URL_EXPIRES_SECONDS = 15 * 60;
 const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
 const MAX_MARKDOWN_BYTES = 900_000;
-const MODAL_FILE_CONVERTER_URL = "https://ray-thurne-void--bonobo-senate-press-file-converter-asgi.modal.run";
 
 function normalizeContentType(value) {
 	return typeof value === "string" ? value.split(";")[0].trim().toLowerCase() : null;
@@ -72,16 +71,13 @@ export default {
 			return skipped();
 		}
 
-		const [sourceUrl, modalToken] = await Promise.all([
+		const [sourceUrl, modalUrl, modalToken] = await Promise.all([
 			sourceTemporaryUrl(env),
-			// Publisher secret MODAL_TOKEN is configured with MODAL_FILE_CONVERTER_URL
-			// as its only allowed origin in the host secret policy.
+			requireSecret(env, "MODAL_FILE_CONVERTER_URL"),
 			requireSecret(env, "MODAL_TOKEN"),
 		]);
-		// Security review: MODAL_TOKEN is sent only to the fixed, declared
-		// Modal converter endpoint above and is never written to outputs.
 		const response = await env.BONOBO.outbound.fetch({
-			url: MODAL_FILE_CONVERTER_URL,
+			url: modalUrl,
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${modalToken}`,
