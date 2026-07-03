@@ -26,8 +26,8 @@
 	"files": [
 		{
 			"path": "dist/backend/worker.js",
-			"sha256": "sha256:41b83810030d8238d73dc67fff35f3a14639e0a58f54ccaec889824f6f015767",
-			"bytes": 2830,
+			"sha256": "sha256:b167ec96a8c4b3f59712fb0eb573c690b12177f943fd3b1ff44fe4cadae04b08",
+			"bytes": 3035,
 			"contentType": "application/javascript"
 		}
 	],
