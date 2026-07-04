@@ -4,6 +4,5 @@
 	"displayName": "PDF",
 	"version": "0.1.2",
 	"description": "Converts uploaded PDFs to Markdown.",
-	"publisher": "sybill-ai-engineering",
 	"artifact": "dist/bonobo.artifact.json"
 }
