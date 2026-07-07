@@ -8,9 +8,15 @@ importers:
 
   .:
     devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20260410.1
+        version: 4.20260702.1
       '@eslint/js':
         specifier: ^9.39.1
         version: 9.39.4
+      bonobo-plugin-sdk:
+        specifier: github:raythurnvoid/bonobo-plugin-sdk
+        version: https://codeload.github.com/raythurnvoid/bonobo-plugin-sdk/tar.gz/c25177b793f56b1ab868ea396fdd0013a7a1096d
       eslint:
         specifier: ^9.39.1
         version: 9.39.4
@@ -22,6 +28,9 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@cloudflare/workers-types@4.20260702.1':
+    resolution: {integrity: sha512-mOhf5TUEB1m2vPrxtqoIGfz0fUC9xyxRDx5gWHy5s+OCo6dcV+g7wI1R7gYCMFohhqF/2y2xeKVwMwCJjfn/WA==}
 
   '@eslint-community/eslint-utils@4.9.1':
     resolution: {integrity: sha512-phrYmNiYppR7znFEdqgfWHXR6NCkZEK7hwWDHZUjit/2/U0r6XvkDl0SYnoM51Hq7FhCGdLDT6zxCCOY1hexsQ==}
@@ -109,6 +118,10 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  bonobo-plugin-sdk@https://codeload.github.com/raythurnvoid/bonobo-plugin-sdk/tar.gz/c25177b793f56b1ab868ea396fdd0013a7a1096d:
+    resolution: {tarball: https://codeload.github.com/raythurnvoid/bonobo-plugin-sdk/tar.gz/c25177b793f56b1ab868ea396fdd0013a7a1096d}
+    version: 0.1.0
 
   brace-expansion@1.1.15:
     resolution: {integrity: sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==}
@@ -371,6 +384,8 @@ packages:
 
 snapshots:
 
+  '@cloudflare/workers-types@4.20260702.1': {}
+
   '@eslint-community/eslint-utils@4.9.1(eslint@9.39.4)':
     dependencies:
       eslint: 9.39.4
@@ -457,6 +472,10 @@ snapshots:
   argparse@2.0.1: {}
 
   balanced-match@1.0.2: {}
+
+  bonobo-plugin-sdk@https://codeload.github.com/raythurnvoid/bonobo-plugin-sdk/tar.gz/c25177b793f56b1ab868ea396fdd0013a7a1096d:
+    dependencies:
+      '@cloudflare/workers-types': 4.20260702.1
 
   brace-expansion@1.1.15:
     dependencies:

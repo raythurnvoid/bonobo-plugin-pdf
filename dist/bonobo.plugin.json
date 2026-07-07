@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"name": "pdf",
 	"displayName": "PDF",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Converts uploaded PDFs to Markdown.",
 	"compatibility": {
 		"bonoboPluginRuntime": "1"
@@ -20,13 +20,13 @@
 		}
 	],
 	"pages": [],
-	"capabilities": ["uploads.source.read", "files.source.temporaryUrl", "files.markdown.write", "plugin.secrets.read", "outbound.fetch"],
+	"capabilities": ["plugin.secrets.read", "outbound.fetch"],
 	"outboundOrigins": ["https://ray-thurne-void--bonobo-senate-press-file-converter-asgi.modal.run"],
 	"files": [
 		{
 			"path": "dist/backend/worker.js",
-			"sha256": "sha256:41b83810030d8238d73dc67fff35f3a14639e0a58f54ccaec889824f6f015767",
-			"bytes": 2830,
+			"sha256": "sha256:ed46463ca13c485a2bb63aa330f8ff34cf9f261b05e49a5a407fadf3e90084ff",
+			"bytes": 4127,
 			"contentType": "application/javascript"
 		}
 	]
