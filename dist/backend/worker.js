@@ -1,4 +1,4 @@
-const TEMPORARY_URL_EXPIRES_SECONDS = 15 * 60;
+const DOWNLOAD_URL_EXPIRES_SECONDS = 15 * 60;
 const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
 const MAX_MARKDOWN_BYTES = 900_000;
 
@@ -31,7 +31,13 @@ async function readEvent(request) {
 /** @param {import("bonobo-plugin-sdk").BonoboUploadCompletedEvent} event */
 function getSource(event) {
 	const source = event && typeof event === "object" ? event.source : null;
-	if (!source || typeof source !== "object" || typeof source.name !== "string") {
+	if (
+		!source ||
+		typeof source !== "object" ||
+		typeof source.fileNodeId !== "string" ||
+		typeof source.name !== "string" ||
+		typeof source.path !== "string"
+	) {
 		return null;
 	}
 
@@ -85,15 +91,15 @@ async function hostFetch(env, path, body) {
 
 /**
  * @param {import("bonobo-plugin-sdk").BonoboEnv} env
- * @param {string} pluginRunId
+ * @param {string} fileNodeId
  */
-async function sourceTemporaryUrl(env, pluginRunId) {
-	const result = await hostFetch(env, "/api/plugins/v1/source-temporary-url", {
-		pluginRunId,
-		expiresInSeconds: TEMPORARY_URL_EXPIRES_SECONDS,
+async function sourceDownloadUrl(env, fileNodeId) {
+	const result = await hostFetch(env, "/api/v1/files/download-url", {
+		fileNodeId,
+		expiresInSeconds: DOWNLOAD_URL_EXPIRES_SECONDS,
 	});
 	if (!result || typeof result.url !== "string") {
-		throw new Error("Source temporary URL is unavailable");
+		throw new Error("Source download URL is unavailable");
 	}
 	return result.url;
 }
@@ -111,7 +117,7 @@ export default {
 		}
 
 		const [sourceUrl, modalUrl, modalToken] = await Promise.all([
-			sourceTemporaryUrl(env, event.pluginRunId),
+			sourceDownloadUrl(env, source.fileNodeId),
 			requireSecret(env, "MODAL_FILE_CONVERTER_URL"),
 			requireSecret(env, "MODAL_TOKEN"),
 		]);
@@ -138,11 +144,11 @@ export default {
 			throw new Error("Modal file converter returned no markdown");
 		}
 
-		const path = `${source.name}.md`;
-		await hostFetch(env, "/api/plugins/v1/write-markdown", {
-			pluginRunId: event.pluginRunId,
-			markdown: payload.markdown,
+		// Absolute sibling of the upload: /folder/report.pdf -> /folder/report.pdf.md.
+		const path = `${source.path}.md`;
+		await hostFetch(env, "/api/v1/files/write", {
 			path,
+			content: payload.markdown,
 			overwrite: "replace",
 		});
 
