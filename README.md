@@ -2,7 +2,7 @@
 
 First-party Bonobo workspace plugin for converting uploaded PDFs to Markdown.
 
-On `files.upload.completed` for `application/pdf`, the worker requests a presigned download URL for the uploaded PDF (`POST /api/v1/files/download-url` with the event's `source.fileNodeId`), POSTs it to the Modal file converter (which downloads the PDF and returns Markdown), and writes `<name>.md` next to the upload (`POST /api/v1/files/write` with the absolute sibling path built from `source.path`).
+On `files.upload.completed` for `application/pdf`, the worker requests a presigned download URL for the uploaded PDF (`POST /api/v1/files/download-urls` with `[source.fileNodeId]`), POSTs it to the Modal file converter (which downloads the PDF and returns Markdown), and writes `<name>.md` next to the upload (`POST /api/v1/files/write` with the absolute sibling path built from `source.path`).
 
 ## Secrets
 
