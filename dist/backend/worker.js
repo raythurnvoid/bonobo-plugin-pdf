@@ -122,6 +122,14 @@ export default {
 			requireSecret(env, "MODAL_FILE_CONVERTER_URL"),
 			requireSecret(env, "MODAL_TOKEN"),
 		]);
+
+		// Absolute sibling of the upload: /folder/report.pdf -> /folder/report.pdf.md.
+		const path = `${source.path}.md`;
+		// Create the output file empty right away — after every secret is known to exist, so a
+		// missing secret still fails before any file appears — and let the user see where the
+		// Markdown will land while conversion runs. The write below fills this same node in place.
+		await hostFetch(env, "/api/v1/files/touch", { paths: [path] });
+
 		const response = await fetch(modalUrl, {
 			method: "POST",
 			headers: {
@@ -145,8 +153,6 @@ export default {
 			throw new Error("Modal file converter returned no markdown");
 		}
 
-		// Absolute sibling of the upload: /folder/report.pdf -> /folder/report.pdf.md.
-		const path = `${source.path}.md`;
 		await hostFetch(env, "/api/v1/files/write", {
 			path,
 			content: payload.markdown,
