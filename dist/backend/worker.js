@@ -1,6 +1,9 @@
 const DOWNLOAD_URL_EXPIRES_SECONDS = 15 * 60;
 const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
 const MAX_MARKDOWN_BYTES = 900_000;
+// Predicted run duration for the activity feed: a cold run (Modal boot + conversion of a large
+// PDF) can take several minutes, so claim the host's 5-minute maximum.
+const ACTIVITY_TIMEOUT_MS = 5 * 60 * 1000;
 
 /** @param {unknown} value */
 function normalizeContentType(value) {
@@ -116,6 +119,14 @@ export default {
 		if (normalizeContentType(source.contentType) !== "application/pdf") {
 			return skipped();
 		}
+
+		// Opt into the workspace activity feed first, so users can watch the run — including a
+		// failure while reading secrets. The host links every file this run touches or writes to
+		// the activity and closes it with the run's outcome.
+		await hostFetch(env, "/api/v1/activities/start", {
+			title: `Converting ${source.name}`,
+			timeoutMs: ACTIVITY_TIMEOUT_MS,
+		});
 
 		const [sourceUrl, modalUrl, modalToken] = await Promise.all([
 			sourceDownloadUrl(env, source.fileNodeId),

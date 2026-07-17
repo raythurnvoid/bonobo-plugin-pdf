@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"name": "pdf",
 	"displayName": "PDF",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"description": "Converts uploaded PDFs to Markdown.",
 	"compatibility": {
 		"bonoboPluginRuntime": "1"
@@ -25,8 +25,8 @@
 	"files": [
 		{
 			"path": "dist/backend/worker.js",
-			"sha256": "sha256:b1c8525f23d25a2e122f62fa43d1041d8568043630b77f05970ce9f2b6cc0bc7",
-			"bytes": 4622,
+			"sha256": "sha256:d59ab0ca24a0b45b78b675ad88506a47327e4236f82ff8d4a0e0f9b27fa68274",
+			"bytes": 5207,
 			"contentType": "application/javascript"
 		}
 	]
