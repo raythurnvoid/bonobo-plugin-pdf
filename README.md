@@ -4,6 +4,10 @@ First-party Bonobo workspace plugin for converting uploaded PDFs to Markdown.
 
 On `files.upload.completed` for `application/pdf`, the worker requests a presigned download URL for the uploaded PDF (`POST /api/v1/files/download-urls` with `[source.fileNodeId]`), POSTs it to the Modal file converter (which downloads the PDF and returns Markdown), and writes `<name>.md` next to the upload (`POST /api/v1/files/write` with the absolute sibling path built from `source.path`).
 
+## Configuration
+
+Each installation can edit the manifest-defined YAML. `triggers.files.upload.completed.folders` lists the absolute folders that start automatic PDF runs. A folder includes its descendants. `/` matches every folder, and an empty list disables automatic runs. Manual runs ignore this filter.
+
 ## Secrets
 
 - `MODAL_FILE_CONVERTER_URL` (required) — full URL of the Modal file converter endpoint the worker POSTs to; it must live on the manifest's outbound origin.
