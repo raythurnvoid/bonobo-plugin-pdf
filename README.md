@@ -21,10 +21,10 @@ Both default to the publisher secrets, so the publisher's Modal deployment conve
 
 ## Checks
 
-Run these commands from the parent `t3-chat` repository root. In a standalone plugin clone, omit `--dir plugins/bonobo-plugin-pdf` but keep Vite Plus and `--ignore-workspace`.
+Run these commands from the parent `t3-chat` repository root. In a standalone plugin clone, omit `--dir plugins/bonobo-plugin-pdf` but keep Vite Plus. Do not add `--ignore-workspace`: pnpm 12 then skips this repo's `pnpm-workspace.yaml`.
 
 ```powershell
-vp env exec pnpm --dir plugins/bonobo-plugin-pdf --ignore-workspace run check
+vp env exec pnpm --dir plugins/bonobo-plugin-pdf run check
 ```
 
 The published plugin entrypoint is `dist/backend/worker.js`, described by `dist/bonobo.plugin.json`.
@@ -32,6 +32,6 @@ The published plugin entrypoint is `dist/backend/worker.js`, described by `dist/
 ## Release
 
 1. Bump `version` in `bonobo.plugin.json`.
-2. Run `vp env exec pnpm --dir plugins/bonobo-plugin-pdf --ignore-workspace run build:manifest` — recomputes the `files[]` hashes from disk, syncs the `package.json` version, and byte-copies the manifest to `dist/bonobo.plugin.json`.
+2. Run `vp env exec pnpm --dir plugins/bonobo-plugin-pdf run build:manifest` — recomputes the `files[]` hashes from disk, syncs the `package.json` version, and byte-copies the manifest to `dist/bonobo.plugin.json`.
 3. Commit and push.
 4. Publish the new version from the app's plugin publisher page.
